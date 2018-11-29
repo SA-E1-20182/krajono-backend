@@ -1,0 +1,145 @@
+version: '2.1'
+services:
+    krajono-proxy:
+        image: fffeelipe/sa_academy_proxy:latest
+        depends_on:
+            - academy-api
+        ports:
+            - "80:80"
+    academy-api:
+        image: fffeelipe/krajono-api
+        environment:
+            PORT: '5000'
+            SHOW_URLS: 'true'
+            #KRAJONO_URL: '35.237.231.50'
+            KRAJONO_URL: '192.168.99.101'
+            META_PORT: '3000'
+            META_ENTRY: 'projects'
+            COMMENT_PORT: '4100'
+            COMMENT_ENTRY: 'comments'
+            IMAGE_PORT: '3003'
+            IMAGE_ENTRY: 'image'
+            AUTHOR_PORT: '7999'
+            AUTHOR_CREATE: 'create'
+            AUTHOR_SEARCH: 'search'
+            AUTHOR_AUTHOR: 'author'
+            
+    ##meta-ms:
+        ##image: jdnietov/1e_project_ms:latest
+        #command: bundle exec rails s -p 3000 -b '0.0.0.0'
+        #links:
+            #- meta-db
+    #meta-db:
+        #image: postgres
+    
+    #versioning_ms:
+        #image: jdnietov/1e_version_ms:latest
+        #environment:
+            #PGUSER: postgres
+            #PGPASSWORD: postgres
+            #PGDATABASE: versioning
+            #PGPORT: 5433
+            #PGHOST: versioning_db
+            #PORT: "4000"
+        #depends_on:
+        #- versioning_db
+    #versioning_db:
+        #image: postgres:10
+        #command: -p 5433
+        #environment:
+            #PORT: "5433"
+            #POSTGRES_USER: postgres
+            #POSTGRES_PASSWORD: postgres
+            #PGDATA: /var/lib/postgresql/data/pgdata
+        #volumes:
+        #- pgdata:/var/lib/postgresql/data
+        
+    ##comments_ms:
+        ##image: jdnietov/1e_comment_ms:latest
+        ##container_name: comment_ms
+        ##depends_on:
+        ##- comment_db
+        ##links:
+        ##- comment_db
+    ##comment_db:
+        ##image: mongo:3.3
+        ##container_name: comment_db
+        ##volumes:
+            ##- ./backup:/backup:rw
+            
+    #authors_ms:
+        #image: jdnietov/1e_author_ms:latest
+        #depends_on:
+            #- authors_db
+    #authors_db:
+        #image: mongo:3.3
+        #command: mongod --port 27018
+        #volumes:
+            #- mdbdata:/var/lib/mongodb/data
+
+    #image-ms:
+        #image: jdnietov/1e_image_ms:latest
+        #depends_on:
+            #image-db:
+                #condition: service_healthy
+        #links:
+        #- image-db
+    #image-db:
+        #image: redis
+        #healthcheck:
+            #test: "redis-cli PING"
+            #interval: 20s
+            #retries: 10
+
+    #krajono-ldap:
+        #image: osixia/openldap:1.1.8
+        #environment:
+            #COMPOSE_HTTP_TIMEOUT: 200
+            #LDAP_LOG_LEVEL: "256"
+            #LDAP_ORGANISATION: "Software Architecture"
+            #LDAP_DOMAIN: "arqsoft.unal.edu.co"
+            #LDAP_BASE_DN: ""
+            #LDAP_ADMIN_PASSWORD: "admin"
+            #LDAP_CONFIG_PASSWORD: "config"
+            #LDAP_READONLY_USER: "false"
+            ##LDAP_READONLY_USER_USERNAME: "readonly"
+            ##LDAP_READONLY_USER_PASSWORD: "readonly"
+            #LDAP_BACKEND: "hdb"
+            #LDAP_TLS: "true"
+            #LDAP_TLS_CRT_FILENAME: "ldap.crt"
+            #LDAP_TLS_KEY_FILENAME: "ldap.key"
+            #LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+            #LDAP_TLS_ENFORCE: "false"
+            #LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+            #LDAP_TLS_PROTOCOL_MIN: "3.1"
+            #LDAP_TLS_VERIFY_CLIENT: "demand"
+            #LDAP_REPLICATION: "false"
+            ##LDAP_REPLICATION_CONFIG_SYNCPROV: "binddn="cn=admin,cn=config" bindmethod=simple credentials=$LDAP_CONFIG_PASSWORD searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical"
+            ##LDAP_REPLICATION_DB_SYNCPROV: "binddn="cn=admin,$LDAP_BASE_DN" bindmethod=simple credentials=$LDAP_ADMIN_PASSWORD searchbase="$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical"
+            ##LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+            #LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+            #LDAP_SSL_HELPER_PREFIX: "ldap"
+        #tty: true
+        #stdin_open: true
+        #volumes:
+            #- /var/lib/ldap
+            #- /etc/ldap/slapd.d
+            #- /container/service/slapd/assets/certs/
+        #ports:
+            #- "389:389"
+            #- "636:636"
+        #hostname: "arqsoft.org"
+    #phpldapadmin:
+        #image: osixia/phpldapadmin:latest
+        #container_name: phpldapadmin
+        #environment:
+            #PHPLDAPADMIN_LDAP_HOSTS: "krajono-ldap"
+            #PHPLDAPADMIN_HTTPS: "false"
+        #ports:
+            #- "8085:80"
+        #links:
+            #- krajono-ldap
+      
+volumes:
+    #mdbdata:
+    pgdata:
