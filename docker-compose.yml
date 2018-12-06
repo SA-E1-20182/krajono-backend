@@ -11,7 +11,7 @@ services:
         environment:
             PORT: '5000'
             SHOW_URLS: 'true'
-            KRAJONO_URL: '35.237.231.50'
+            KRAJONO_URL: '35.247.37.179'
             #KRAJONO_URL: '192.168.99.101'
             META_PORT: '3000'
             META_ENTRY: 'projects'
@@ -25,6 +25,10 @@ services:
             AUTHOR_CREATE: 'create'
             AUTHOR_SEARCH: 'search'
             AUTHOR_AUTHOR: 'author'
+            USERS_PORT: '3009'
+            USERS_ENTRY: ''
+            AUTH_PORT: '3009'
+            AUTH_ENTRY: 'ldap'
             
     meta-ms:
         image: jdnietov/1e_project_ms:latest
