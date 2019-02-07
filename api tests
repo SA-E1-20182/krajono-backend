@@ -1,0 +1,29 @@
+sudo docker-compose build && sudo docker-compose up
+
+
+
+mutation{createSession(auth:{auth:{
+  email: "loquesea4@unal.edu.co"
+password: "password"}
+}){
+  jwt
+}
+}
+
+mutation {
+  createUser(user: {
+    username: "loquesea4"
+    email: "loquesea4@unal.edu.co"
+    password: "password"
+  }) {
+    id
+  }
+}
+
+mutation{createVersion(version:{
+  user_id: 1
+  project_id: 1
+  pages: ["2"]
+}){
+  version_id
+}}

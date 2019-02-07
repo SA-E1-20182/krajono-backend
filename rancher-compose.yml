@@ -22,22 +22,22 @@ services:
     scale: 5
     start_on_create: true
   comment-db:
-    scale: 2
+    scale: 1
     start_on_create: true
   authors-ms:
     scale: 5
     start_on_create: true
   authors-db:
-    scale: 2
+    scale: 1
     start_on_create: true
   image-ms:
     scale: 5
     start_on_create: true
   image-db:
-    scale: 2
+    scale: 1
     start_on_create: true
   users-db:
-    scale: 2
+    scale: 1
     start_on_create: true
   users-ms:
     scale: 5
