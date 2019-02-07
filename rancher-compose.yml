@@ -1,0 +1,50 @@
+version: '2'
+services:
+  krajono-proxy:
+    scale: 1
+    start_on_create: true
+  krajono-api:
+    scale: 5
+    start_on_create: true
+  versioning_ms:
+    scale: 5
+    start_on_create: true
+  versioning_db:
+    scale: 2
+    start_on_create: true
+  meta-ms:
+    scale: 5
+    start_on_create: true
+  meta-db:
+    scale: 2
+    start_on_create: true
+  comments_ms:
+    scale: 5
+    start_on_create: true
+  comment_db:
+    scale: 2
+    start_on_create: true
+  authors_ms:
+    scale: 5
+    start_on_create: true
+  authors_db:
+    scale: 2
+    start_on_create: true
+  image-ms:
+    scale: 5
+    start_on_create: true
+  image-db:
+    scale: 2
+    start_on_create: true
+  users_db:
+    scale: 2
+    start_on_create: true
+  users_ms:
+    scale: 5
+    start_on_create: true
+  krajono-ldap:
+    scale: 1
+    start_on_create: true
+  phpldapadmin:
+    scale: 1
+    start_on_create: true
