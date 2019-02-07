@@ -6,10 +6,10 @@ services:
   krajono-api:
     scale: 5
     start_on_create: true
-  versioning_ms:
+  versioning-ms:
     scale: 5
     start_on_create: true
-  versioning_db:
+  versioning-db:
     scale: 2
     start_on_create: true
   meta-ms:
@@ -18,16 +18,16 @@ services:
   meta-db:
     scale: 2
     start_on_create: true
-  comments_ms:
+  comments-ms:
     scale: 5
     start_on_create: true
-  comment_db:
+  comment-db:
     scale: 2
     start_on_create: true
-  authors_ms:
+  authors-ms:
     scale: 5
     start_on_create: true
-  authors_db:
+  authors-db:
     scale: 2
     start_on_create: true
   image-ms:
@@ -36,10 +36,10 @@ services:
   image-db:
     scale: 2
     start_on_create: true
-  users_db:
+  users-db:
     scale: 2
     start_on_create: true
-  users_ms:
+  users-ms:
     scale: 5
     start_on_create: true
   krajono-ldap:
