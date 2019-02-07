@@ -13,23 +13,54 @@ services:
             SHOW_URLS: 'true'
             KRAJONO_URL: '35.247.37.179'
             #KRAJONO_URL: '192.168.99.101'
+            META_URL: meta-ms
             META_PORT: '3000'
             META_ENTRY: 'projects'
+            COMMENT_URL: comments_ms
             COMMENT_PORT: '4100'
             COMMENT_ENTRY: 'comments'
+            IMAGE_URL: image-ms
             IMAGE_PORT: '3003'
             IMAGE_ENTRY: 'image'
+            VERSION_URL: versioning_ms
             VERSION_PORT: '4000'
             VERSION_ENTRY: 'api/projects'
+            AUTHOR_URL: authors_ms
             AUTHOR_PORT: '7999'
             AUTHOR_CREATE: 'create'
             AUTHOR_SEARCH: 'search'
             AUTHOR_AUTHOR: 'author'
+            USERS_URL: users_ms
             USERS_PORT: '3009'
             USERS_ENTRY: ''
+            AUTH_URL: krajono-ldap
             AUTH_PORT: '3009'
             AUTH_ENTRY: 'ldap'
             
+    versioning_ms:
+        image: jdnietov/1e_version_ms:latest
+        environment:
+            PGUSER: postgres
+            PGPASSWORD: postgres
+            PGDATABASE: versioning
+            PGPORT: 5433
+            PGHOST: versioning_db
+        ports:
+            - "4000:4000"
+        depends_on:
+            - versioning_db
+    versioning_db:
+        image: postgres:10
+        command: -p 5433
+        environment:
+            PORT: "5433"
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+    
+    
     meta-ms:
         image: jdnietov/1e_project_ms:latest
         ports:
@@ -42,34 +73,11 @@ services:
         ports:
             - "5432"
     
-    versioning_ms:
-        image: jdnietov/1e_version_ms:latest
-        environment:
-            PGUSER: postgres
-            PGPASSWORD: postgres
-            PGDATABASE: versioning
-            PGPORT: 5433
-            PGHOST: versioning_db
-        ports:
-            - "4000:4000"
-        depends_on:
-        - versioning_db
-    versioning_db:
-        image: postgres:10
-        command: -p 5433
-        environment:
-            PORT: "5433"
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            PGDATA: /var/lib/postgresql/data/pgdata
-        volumes:
-        - pgdata:/var/lib/postgresql/data
-        
     comments_ms:
         image: jdnietov/1e_comment_ms:latest
         container_name: comment_ms
         depends_on:
-        - comment_db
+            - comment_db
         ports:
             - "4100:4100"
 
@@ -100,7 +108,7 @@ services:
             image-db:
                 condition: service_healthy
         links:
-        - image-db
+            - image-db
     image-db:
         image: redis
         ports:
