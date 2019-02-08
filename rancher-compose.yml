@@ -4,47 +4,47 @@ services:
     scale: 1
     start_on_create: true
   krajono-api:
-    scale: 5
+    scale: 2
     start_on_create: true
   versioning-ms:
-    scale: 5
+    scale: 2
     start_on_create: true
   versioning-db:
     scale: 2
     start_on_create: true
   meta-ms:
-    scale: 5
+    scale: 2
     start_on_create: true
   meta-db:
     scale: 2
     start_on_create: true
-  comments-ms:
-    scale: 5
-    start_on_create: true
-  comment-db:
-    scale: 1
-    start_on_create: true
-  authors-ms:
-    scale: 5
-    start_on_create: true
-  authors-db:
-    scale: 1
-    start_on_create: true
-  image-ms:
-    scale: 5
-    start_on_create: true
-  image-db:
-    scale: 1
-    start_on_create: true
-  users-db:
-    scale: 1
-    start_on_create: true
-  users-ms:
-    scale: 5
-    start_on_create: true
-  krajono-ldap:
-    scale: 1
-    start_on_create: true
-  phpldapadmin:
-    scale: 1
-    start_on_create: true
+  # comments-ms:
+  #   scale: 5
+  #   start_on_create: true
+  # comment-db:
+  #   scale: 1
+  #   start_on_create: true
+  # authors-ms:
+  #   scale: 5
+  #   start_on_create: true
+  # authors-db:
+  #   scale: 1
+  #   start_on_create: true
+  # image-ms:
+  #   scale: 5
+  #   start_on_create: true
+  # image-db:
+  #   scale: 1
+  #   start_on_create: true
+  # users-db:
+  #   scale: 1
+  #   start_on_create: true
+  # users-ms:
+  #   scale: 5
+  #   start_on_create: true
+  # krajono-ldap:
+  #   scale: 1
+  #   start_on_create: true
+  # phpldapadmin:
+  #   scale: 1
+  #   start_on_create: true

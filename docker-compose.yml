@@ -45,8 +45,8 @@ services:
             PGDATABASE: versioning
             PGPORT: 5433
             PGHOST: versioning-db
-        ports:
-            - "4000:4000"
+        # ports:
+        #     - "4000:4000"
         depends_on:
             - versioning-db
     versioning-db:
@@ -63,120 +63,120 @@ services:
     
     meta-ms:
         image: jdnietov/1e_project_ms:latest
-        ports:
-            - "3000:3000"
+        # ports:
+        #     - "3000:3000"
         depends_on:
             - meta-db
     
     meta-db:
-        image: postgres
+        image: postgres:9.6
         ports:
             - "5432"
     
-    comments-ms:
-        image: jdnietov/1e_comment_ms:latest
-        container_name: comment-ms
-        depends_on:
-            - comment-db
-        ports:
-            - "4100:4100"
+    # comments-ms:
+    #     image: jdnietov/1e_comment_ms:latest
+    #     container_name: comment-ms
+    #     depends_on:
+    #         - comment-db
+    #     ports:
+    #         - "4100:4100"
 
-    comment-db:
-        image: mongo:3.3
-        container_name: comment-db
-        volumes:
-            - ./backup:/backup:rw
+    # comment-db:
+    #     image: mongo:3.3
+    #     container_name: comment-db
+    #     volumes:
+    #         - ./backup:/backup:rw
             
-    authors-ms:
-        image: jdnietov/1e_author_ms:latest
-        depends_on:
-            - authors-db
-        ports:
-            - "7999:7999"
+    # authors-ms:
+    #     image: jdnietov/1e_author_ms:latest
+    #     depends_on:
+    #         - authors-db
+    #     ports:
+    #         - "7999:7999"
 
-    authors-db:
-        image: mongo:3.3
-        command: mongod --port 27018
-        volumes:
-            - mdbdata:/var/lib/mongodb/data
+    # authors-db:
+    #     image: mongo:3.3
+    #     command: mongod --port 27018
+    #     volumes:
+    #         - mdbdata:/var/lib/mongodb/data
 
-    image-ms:
-        image: jdnietov/1e_image_ms:latest
-        ports:
-            - "3003:3003"
-        depends_on:
-            - image-db
-        links:
-            - image-db
-    image-db:
-        image: redis
-        ports:
-            - "6379:6379"
+    # image-ms:
+    #     image: jdnietov/1e_image_ms:latest
+    #     ports:
+    #         - "3003:3003"
+    #     depends_on:
+    #         - image-db
+    #     links:
+    #         - image-db
+    # image-db:
+    #     image: redis
+    #     ports:
+    #         - "6379:6379"
             
-    users-db:
-        image: mysql:5.7
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: root123
-            MYSQL_USER: user
-            MYSQL_PASSWORD: pass123
-            MYSQL_DATABASE: users
-    users-ms:
-        image: fffeelipe/1e_users_ms
-        ports:
-            - "3009:3009"
-        depends_on:
-            - users-db
+    # users-db:
+    #     image: mysql:5.7
+    #     ports:
+    #         - "3306:3306"
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: root123
+    #         MYSQL_USER: user
+    #         MYSQL_PASSWORD: pass123
+    #         MYSQL_DATABASE: users
+    # users-ms:
+    #     image: fffeelipe/1e_users_ms
+    #     ports:
+    #         - "3009:3009"
+    #     depends_on:
+    #         - users-db
 
-    krajono-ldap:
-        image: osixia/openldap:1.1.8
-        environment:
-            COMPOSE_HTTP_TIMEOUT: 200
-            LDAP_LOG_LEVEL: "256"
-            LDAP_ORGANISATION: "Software Architecture"
-            LDAP_DOMAIN: "arqsoft.unal.edu.co"
-            LDAP_BASE_DN: ""
-            LDAP_ADMIN_PASSWORD: "admin"
-            LDAP_CONFIG_PASSWORD: "config"
-            LDAP_READONLY_USER: "false"
-            #LDAP_READONLY_USER_USERNAME: "readonly"
-            #LDAP_READONLY_USER_PASSWORD: "readonly"
-            LDAP_BACKEND: "hdb"
-            LDAP_TLS: "true"
-            LDAP_TLS_CRT_FILENAME: "ldap.crt"
-            LDAP_TLS_KEY_FILENAME: "ldap.key"
-            LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
-            LDAP_TLS_ENFORCE: "false"
-            LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
-            LDAP_TLS_PROTOCOL_MIN: "3.1"
-            LDAP_TLS_VERIFY_CLIENT: "demand"
-            LDAP_REPLICATION: "false"
-            #LDAP_REPLICATION_CONFIG_SYNCPROV: "binddn="cn=admin,cn=config" bindmethod=simple credentials=$LDAP_CONFIG_PASSWORD searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical"
-            #LDAP_REPLICATION_DB_SYNCPROV: "binddn="cn=admin,$LDAP_BASE_DN" bindmethod=simple credentials=$LDAP_ADMIN_PASSWORD searchbase="$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical"
-            #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
-            LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
-            LDAP_SSL_HELPER_PREFIX: "ldap"
-        tty: true
-        stdin_open: true
-        volumes:
-            - /var/lib/ldap
-            - /etc/ldap/slapd.d
-            - /container/service/slapd/assets/certs/
-        ports:
-            - "389:389"
-            - "636:636"
-        hostname: "arqsoft.org"
-    phpldapadmin:
-        image: osixia/phpldapadmin:latest
-        container_name: phpldapadmin
-        environment:
-            PHPLDAPADMIN_LDAP_HOSTS: "krajono-ldap"
-            PHPLDAPADMIN_HTTPS: "false"
-        ports:
-            - "8085:80"
-        links:
-            - krajono-ldap
+    # krajono-ldap:
+    #     image: osixia/openldap:1.1.8
+    #     environment:
+    #         COMPOSE_HTTP_TIMEOUT: 200
+    #         LDAP_LOG_LEVEL: "256"
+    #         LDAP_ORGANISATION: "Software Architecture"
+    #         LDAP_DOMAIN: "arqsoft.unal.edu.co"
+    #         LDAP_BASE_DN: ""
+    #         LDAP_ADMIN_PASSWORD: "admin"
+    #         LDAP_CONFIG_PASSWORD: "config"
+    #         LDAP_READONLY_USER: "false"
+    #         #LDAP_READONLY_USER_USERNAME: "readonly"
+    #         #LDAP_READONLY_USER_PASSWORD: "readonly"
+    #         LDAP_BACKEND: "hdb"
+    #         LDAP_TLS: "true"
+    #         LDAP_TLS_CRT_FILENAME: "ldap.crt"
+    #         LDAP_TLS_KEY_FILENAME: "ldap.key"
+    #         LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+    #         LDAP_TLS_ENFORCE: "false"
+    #         LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+    #         LDAP_TLS_PROTOCOL_MIN: "3.1"
+    #         LDAP_TLS_VERIFY_CLIENT: "demand"
+    #         LDAP_REPLICATION: "false"
+    #         #LDAP_REPLICATION_CONFIG_SYNCPROV: "binddn="cn=admin,cn=config" bindmethod=simple credentials=$LDAP_CONFIG_PASSWORD searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical"
+    #         #LDAP_REPLICATION_DB_SYNCPROV: "binddn="cn=admin,$LDAP_BASE_DN" bindmethod=simple credentials=$LDAP_ADMIN_PASSWORD searchbase="$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical"
+    #         #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+    #         LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+    #         LDAP_SSL_HELPER_PREFIX: "ldap"
+    #     tty: true
+    #     stdin_open: true
+    #     volumes:
+    #         - /var/lib/ldap
+    #         - /etc/ldap/slapd.d
+    #         - /container/service/slapd/assets/certs/
+    #     ports:
+    #         - "389:389"
+    #         - "636:636"
+    #     hostname: "arqsoft.org"
+    # phpldapadmin:
+    #     image: osixia/phpldapadmin:latest
+    #     container_name: phpldapadmin
+    #     environment:
+    #         PHPLDAPADMIN_LDAP_HOSTS: "krajono-ldap"
+    #         PHPLDAPADMIN_HTTPS: "false"
+    #     ports:
+    #         - "8085:80"
+    #     links:
+    #         - krajono-ldap
       
 volumes:
     mdbdata:
