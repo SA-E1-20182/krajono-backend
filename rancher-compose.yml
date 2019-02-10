@@ -1,5 +1,8 @@
 version: '2'
 services:
+  # krajono-wa:
+  #   scale: 1
+  #   start_on_create: true
   krajono-proxy:
     scale: 1
     start_on_create: true
