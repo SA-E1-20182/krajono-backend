@@ -10,7 +10,7 @@ services:
     scale: 5
     start_on_create: true
   versioning-db:
-    scale: 2
+    scale: 1
     start_on_create: true
   meta-ms:
     scale: 5
@@ -37,7 +37,7 @@ services:
     scale: 1
     start_on_create: true
   users-db:
-    scale: 1
+    scale: 2
     start_on_create: true
   users-ms:
     scale: 5
