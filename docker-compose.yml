@@ -2,6 +2,9 @@ version: '2'
 services:
     krajono-wa:
         image: jdnietov/krajono_wa
+        environment:
+            REACT_APP_API_URL: "krajono-proxy/graphql"
+            REACT_APP_IMAGE_URL: "image-ms:3003/image"
     krajono-proxy:
         image: fffeelipe/krajono-proxy
         depends_on:
