@@ -109,8 +109,8 @@ services:
 
     image-ms:
         image: jdnietov/1e_image_ms:latest
-        # ports:
-        #     - "3003:3003"
+        ports:
+            - "3003:3003"
         depends_on:
             - image-db
         links:
