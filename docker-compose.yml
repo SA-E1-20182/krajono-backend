@@ -34,7 +34,7 @@ services:
             USERS_URL: users-ms
             USERS_PORT: '3009'
             USERS_ENTRY: ''
-            AUTH_URL: krajono-ldap
+            AUTH_URL: users-ms
             AUTH_PORT: '3009'
             AUTH_ENTRY: 'ldap'
             
@@ -123,6 +123,7 @@ services:
             MYSQL_USER: user
             MYSQL_PASSWORD:     
             MYSQL_DATABASE: users
+            MYSQL_HOST: users-db
     users-ms:
         image: fffeelipe/1e_users_ms
 #        ports:
