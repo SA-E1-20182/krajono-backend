@@ -33,7 +33,7 @@ services:
             USERS_URL: users-ms
             USERS_PORT: '3009'
             USERS_ENTRY: ''
-            AUTH_URL: krajono-ldap
+            AUTH_URL: users-ms
             AUTH_PORT: '3009'
             AUTH_ENTRY: 'ldap'
             
