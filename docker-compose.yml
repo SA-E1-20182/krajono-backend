@@ -16,7 +16,7 @@ services:
         environment:
             PORT: '5000'
             SHOW_URLS: 'true'
-            KRAJONO_URL: krajono-api
+            # KRAJONO_URL: krajono-api
             META_URL: meta-ms
             META_PORT: '3000'
             META_ENTRY: 'projects'
