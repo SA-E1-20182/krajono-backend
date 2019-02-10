@@ -3,7 +3,7 @@ services:
     krajono-wa:
         image: jdnietov/krajono_wa
         environment:
-            REACT_APP_API_URL: "http://35.237.210.153/graphiql"
+            REACT_APP_API_URL: "http://35.237.210.153/graphql"
             REACT_APP_IMAGE_URL: "http://35.237.210.153:3003/image"
         ports:
             - "3000:3000"
