@@ -1,12 +1,12 @@
 version: '2'
 services:
-    # krajono-wa:
-    #     image: jdnietov/krajono_wa
-    #     environment:
-    #         REACT_APP_API_URL: "http://35.237.210.153/graphiql"
-    #         REACT_APP_IMAGE_URL: "http://35.237.210.153:3003/image"
-    #     ports:
-    #         - "3000:3000"
+    krajono-wa:
+        image: jdnietov/krajono_wa
+        environment:
+            REACT_APP_API_URL: "http://35.237.210.153/graphiql"
+            REACT_APP_IMAGE_URL: "http://35.237.210.153:3003/image"
+        ports:
+            - "3000:3000"
 
     krajono-proxy:
         image: fffeelipe/krajono-proxy
@@ -52,8 +52,8 @@ services:
             PGDATABASE: versioning
             PGPORT: 5433
             PGHOST: versioning-db
-        # ports:
-        #     - "4000:4000"
+        ports:
+            - "4000:4000"
         depends_on:
             - versioning-db
     versioning-db:
@@ -70,8 +70,8 @@ services:
     
     meta-ms:
         image: jdnietov/1e_project_ms:latest
-        # ports:
-        #     - "3000:3000"
+        ports:
+            - "3000:3000"
         depends_on:
             - meta-db
     
@@ -85,8 +85,8 @@ services:
         container_name: comment-ms
         depends_on:
             - comment-db
-#        ports:
-#            - "4100:4100"
+        ports:
+            - "4100:4100"
 
     comment-db:
         image: mongo:3.3
@@ -98,8 +98,8 @@ services:
         image: jdnietov/1e_author_ms:latest
         depends_on:
             - authors-db
-#        ports:
-#            - "7999:7999"
+        ports:
+            - "7999:7999"
 
     authors-db:
         image: mongo:3.3
@@ -109,21 +109,21 @@ services:
 
     image-ms:
         image: jdnietov/1e_image_ms:latest
-#        ports:
-#            - "3003:3003"
+        ports:
+            - "3003:3003"
         depends_on:
             - image-db
         links:
             - image-db
     image-db:
         image: redis
-#        ports:
-#            - "6379:6379"
+        ports:
+            - "6379:6379"
             
     users-db:
         image: mysql:5.7
-#        ports:
-#            - "3306:3306"
+        ports:
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: 123
             MYSQL_USER: user
@@ -132,8 +132,8 @@ services:
             MYSQL_HOST: users-db
     users-ms:
         image: fffeelipe/1e_users_ms
-#        ports:
-#            - "3009:3009"
+        ports:
+            - "3009:3009"
         depends_on:
             - users-db
 
