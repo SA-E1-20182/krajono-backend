@@ -122,7 +122,7 @@ services:
             MYSQL_USER: user
             MYSQL_PASSWORD: 123
             MYSQL_DATABASE: users
-            MYSQL_HOST: users_db
+            MYSQL_HOST: users-db
     users-ms:
         image: fffeelipe/1e_users_ms
         ports:
